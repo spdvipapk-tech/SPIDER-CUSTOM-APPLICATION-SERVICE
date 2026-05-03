@@ -2,4 +2,852 @@
 <html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Untitled Project</title><meta name="title" content="Untitled Project"><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="./style.css"><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
   "imports": {}
-}</script></head><body><script src="./script.js"></script></body></html>
+}</script></head><body>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Spider Custom Apps | ওয়েব ও অ্যান্ড্রয়েড সলিউশন</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&amp;family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-body: #020209;
+            --bg-card-dark: rgba(6, 6, 18, 0.85);
+            --card-bg: #060613;
+            --border-glow: rgba(240, 180, 41, 0.45);
+            --text-primary: #e2e8f0;
+            --text-dim: #a0aec0;
+            --accent-gold: #f0b429;
+            --accent-gold-light: #ffd966;
+            --card-border: rgba(240, 180, 41, 0.2);
+            --list-bg: #0f0f1c;
+            --list-border: #2a2a48;
+            --shadow-glow: 0 0 12px rgba(240,180,41,0.3);
+            --footer-color: #5c6f8c;
+            --particle-color: rgba(240,180,41,0.2);
+            --btn-gradient: linear-gradient(95deg, #1e1a2f, #100e1c);
+            --modal-overlay: rgba(0,0,0,0.8);
+        }
+
+        body.light-theme {
+            --bg-body: #f1f5f9;
+            --bg-card-dark: rgba(255, 255, 255, 0.92);
+            --card-bg: #ffffff;
+            --border-glow: rgba(212, 175, 55, 0.6);
+            --text-primary: #0f172a;
+            --text-dim: #334155;
+            --accent-gold: #b97f10;
+            --accent-gold-light: #e6a017;
+            --card-border: rgba(185, 127, 16, 0.3);
+            --list-bg: #f8fafc;
+            --list-border: #cbd5e1;
+            --shadow-glow: 0 0 12px rgba(185,127,16,0.25);
+            --footer-color: #475569;
+            --particle-color: rgba(185,127,16,0.15);
+            --btn-gradient: linear-gradient(95deg, #e9eef3, #ffffff);
+            --modal-overlay: rgba(0,0,0,0.6);
+        }
+
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.2s;
+        }
+
+        /* particles */
+        .bg-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--accent-gold) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            animation: floatParticle 20s infinite alternate ease-in-out;
+            opacity: 0.2;
+        }
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+            100% { transform: translate(30px, -40px) scale(1.2); opacity: 0.4; }
+        }
+
+        .screen {
+            position: relative;
+            z-index: 10;
+            transition: opacity 0.3s ease;
+            width: 100%;
+            padding: 20px;
+        }
+        .screen.hidden { display: none; }
+
+        /* landing card */
+        .landing-card {
+            max-width: 560px;
+            margin: 8vh auto;
+            background: var(--bg-card-dark);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 30px 45px rgba(0,0,0,0.4);
+            padding: 40px 24px 50px;
+            text-align: center;
+        }
+        .spider-icon { font-size: 70px; filter: drop-shadow(0 0 12px var(--accent-gold)); margin-bottom: 16px; animation: pulseGlow 2s infinite; }
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 0px var(--accent-gold); transform: scale(1);}
+            50% { text-shadow: 0 0 18px var(--accent-gold-light); transform: scale(1.02);}
+            100% { text-shadow: 0 0 0px var(--accent-gold); transform: scale(1);}
+        }
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #FFE6A3, var(--accent-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            border-top: 1px dashed var(--border-glow);
+            display: inline-block;
+            padding-top: 8px;
+        }
+        .desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 32px;
+            line-height: 1.45;
+        }
+        .enter-btn {
+            background: var(--btn-gradient);
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 80px;
+            padding: 14px 20px;
+            width: 100%;
+            font-family: 'Orbitron', monospace;
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+            color: var(--accent-gold);
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: var(--shadow-glow);
+        }
+        .enter-btn:active { transform: scale(0.97); }
+
+        /* dashboard */
+        .dashboard-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px 16px 50px;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 18px;
+        }
+        .hero-icon { font-size: 55px; filter: drop-shadow(0 0 6px var(--accent-gold)); }
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #FFDF9C, var(--accent-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .badge { font-family: monospace; font-size: 0.7rem; color: var(--text-dim); margin-top: 6px; }
+        .services-main {
+            background: var(--bg-card-dark);
+            backdrop-filter: blur(8px);
+            border-radius: 32px;
+            padding: 30px 24px;
+            border: 1px solid var(--card-border);
+        }
+        .double-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+        }
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 20px 18px;
+            border: 0.5px solid var(--card-border);
+            transition: 0.2s;
+        }
+        .service-card h3 {
+            font-family: 'Orbitron';
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 16px;
+        }
+        .app-list-container {
+            max-height: 620px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .app-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--list-bg);
+            margin-bottom: 10px;
+            padding: 10px 14px;
+            border-radius: 60px;
+            border: 0.5px solid var(--list-border);
+            transition: all 0.15s;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .app-name {
+            flex: 1;
+            font-size: 0.82rem;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            word-break: break-word;
+            color: var(--text-primary);
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .icon-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            color: var(--accent-gold);
+            background: rgba(0,0,0,0.2);
+        }
+        .icon-btn i { font-size: 1rem; }
+        .icon-btn:hover { background: var(--accent-gold); color: #000; transform: scale(1.05); }
+        body.light-theme .icon-btn { background: #e9eef3; color: #b97f10; }
+        body.light-theme .icon-btn:hover { background: #b97f10; color: white; }
+
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: #1e1e30; }
+        ::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 10px; }
+
+        .footer-end {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 0.7rem;
+            color: var(--footer-color);
+            font-family: monospace;
+        }
+
+        /* floating + settings */
+        .floating-actions {
+            position: fixed;
+            bottom: 24px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .floating-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+        .floating-btn:active { transform: scale(0.92); }
+        .whatsapp-btn { background: #075e54; border-color: #25d366; color: white; }
+        .settings-panel {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--accent-gold);
+            border-radius: 28px;
+            padding: 20px;
+            width: 250px;
+            z-index: 1100;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            display: none;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .settings-panel.open { display: flex; }
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .settings-row span { font-size: 0.85rem; font-weight: 500; }
+        .toggle-group {
+            display: flex;
+            gap: 8px;
+            background: var(--list-bg);
+            border-radius: 60px;
+            padding: 4px;
+        }
+        .toggle-option {
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+            background: transparent;
+            color: var(--text-dim);
+        }
+        .toggle-option.active {
+            background: var(--accent-gold);
+            color: #000;
+            box-shadow: 0 0 6px gold;
+        }
+        .close-settings {
+            text-align: right;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: var(--text-dim);
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-overlay);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            max-width: 480px;
+            width: 90%;
+            border-radius: 32px;
+            border: 1px solid var(--accent-gold);
+            padding: 28px 22px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-content h3 {
+            font-family: 'Orbitron';
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            border-bottom: 1px dashed var(--border-glow);
+            padding-bottom: 8px;
+        }
+        .feature-list {
+            list-style: none;
+            margin-top: 12px;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            background: transparent;
+            padding: 6px 0;
+            border: none;
+        }
+        .feature-list li i {
+            color: var(--accent-gold);
+            width: 20px;
+            font-size: 0.9rem;
+        }
+        .close-modal {
+            background: var(--accent-gold);
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            margin-top: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 760px) {
+            .double-grid { grid-template-columns: 1fr; }
+            .app-item { flex-wrap: wrap; justify-content: space-between; }
+            .app-name { font-size: 0.75rem; }
+        }
+    </style>
+
+
+    <div class="bg-particles" id="particles"></div>
+
+    <!-- Landing Screen -->
+    <div id="landingScreen" class="screen">
+        <div class="landing-card">
+            <div class="spider-icon">🕷️⚡🕸️</div>
+            <div class="title" id="landingTitle">স্পাইডার কাস্টম অ্যাপ্লিকেশন</div>
+            <div class="sub" id="landingSub">◈ 38+ ওয়েব ও 38+ অ্যান্ড্রয়েড অ্যাপ ◈</div>
+            <div class="desc" id="landingDesc">
+                সম্পূর্ণ ওয়েব &amp; অ্যান্ড্রয়েড সমাধান<br>
+                বিস্তারিত ফিচার ও ডেমো সহ প্রতিটি অ্যাপ
+            </div>
+            <button id="enterBtn" class="enter-btn">🚀 ড্যাশবোর্ডে প্রবেশ</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" class="screen hidden">
+        <div class="dashboard-container">
+            <div class="hero">
+                <div class="hero-icon">🕷️📱🕸️</div>
+                <h1 id="dashTitle">স্পাইডার কাস্টম অ্যাপ্লিকেশন সুপারশপ</h1>
+                <div class="badge" id="dashBadge">⚡ 38 টি ওয়েব অ্যাপ | 38 টি অ্যান্ড্রয়েড অ্যাপ ⚡</div>
+            </div>
+            <div class="services-main">
+                <div class="double-grid">
+                    <div class="service-card">
+                        <h3 id="webCardTitle"><i class="fas fa-globe"></i> ওয়েব অ্যাপ্লিকেশন</h3>
+                        <div class="app-list-container" id="webAppsContainer"></div>
+                    </div>
+                    <div class="service-card">
+                        <h3 id="androidCardTitle"><i class="fab fa-android"></i> অ্যান্ড্রয়েড অ্যাপ্লিকেশন</h3>
+                        <div class="app-list-container" id="androidAppsContainer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-end" id="footerText">
+                🕸️ স্পাইডার কোর · কাস্টম ডেভেলপমেন্ট · ১ বছর ফ্রি সাপোর্ট<br>
+                📞 +8801618366393 | WhatsApp: wa.me/8801618366393
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating buttons -->
+    <div class="floating-actions">
+        <a href="#" id="whatsappFloatBtn" class="floating-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <div id="settingsFloatBtn" class="floating-btn"><i class="fas fa-cog"></i></div>
+    </div>
+
+    <!-- Settings Panel (Language + Theme) -->
+    <div id="settingsPanel" class="settings-panel">
+        <div class="close-settings" id="closeSettingsBtn">✖ বন্ধ করুন</div>
+        <div class="settings-row">
+            <span><i class="fas fa-language"></i> <span id="langLabel">ভাষা</span></span>
+            <div class="toggle-group" id="langToggleGroup">
+                <div class="toggle-option" data-lang="bn">বাংলা</div>
+                <div class="toggle-option" data-lang="en">English</div>
+            </div>
+        </div>
+        <div class="settings-row">
+            <span><i class="fas fa-moon"></i> <span id="themeLabel">থিম</span></span>
+            <div class="toggle-group" id="themeToggleGroup">
+                <div class="toggle-option" data-theme="dark">ডার্ক</div>
+                <div class="toggle-option" data-theme="light">লাইট</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Details -->
+    <div id="featureModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modalTitle">ফিচার সমূহ</h3>
+            <ul id="modalFeatures" class="feature-list"></ul>
+            <button class="close-modal" id="closeModalBtn">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <script>
+        // ---------- MULTILINGUAL DATA (38 Web + 38 Android) ----------
+        const webAppsBN = [
+            "মাল্টি-ভেন্ডার ই-কমার্স ওয়েবসাইট", "সিঙ্গেল-ভেন্ডার ই-কমার্স ওয়েবসাইট", "স্টোর ম্যানেজমেন্ট ও পজ (POS) সফটওয়্যার", "ERP, HRM, CRM সফটওয়্যার",
+            "একাউন্টিং সফটওয়্যার", "ই-লার্নিং ওয়েবসাইট (LMS)", "স্কুল ম্যানেজমেন্ট সফটওয়্যার ও ওয়েবসাইট", "নিউজ ও ব্লগ ওয়েবসাইট",
+            "পার্সোনাল পোর্টফোলিও ওয়েবসাইট", "কর্পোরেট কোম্পানি ওয়েবসাইট", "কনস্ট্রাকশন কোম্পানি ওয়েবসাইট", "কনসাল্টিং এজেন্সি ওয়েবসাইট",
+            "ডিজিটাল প্রোডাক্ট সেলিং ওয়েবসাইট", "জব পোর্টাল ওয়েবসাইট", "ক্লাসিফাইড ওয়েবসাইট", "বিজনেস ডাইরেক্টরি ওয়েবসাইট",
+            "ডক্টর ডাইরেক্টরি ও বুকিং ওয়েবসাইট", "কার ডাইরেক্টরি ও বুকিং ওয়েবসাইট", "প্রোপার্টি বাই-সেল-রেন্টাল ওয়েবসাইট", "অন ডিমান্ড সার্ভিস ওয়েবসাইট",
+            "NGO ও ডোনেশন প্লাটফর্ম ওয়েবসাইট", "ব্লাড ডোনেশন ওয়েবসাইট", "রেস্টুরেন্ট ওয়েবসাইট ও সফটওয়্যার", "ফুড ডেলিভারি সিস্টেম",
+            "কুরিয়ার সার্ভিস ওয়েবসাইট ও সফটওয়্যার", "মেট্রিমোনিয়াল ওয়েবসাইট", "হাসপাতাল ম্যানেজমেন্ট সফটওয়্যার", "ফার্মেসি ম্যানেজমেন্ট সফটওয়্যার",
+            "প্রোজেক্ট ম্যানেজমেন্ট সফটওয়্যার", "ইভেন্ট ম্যানেজমেন্ট ও বুকিং ওয়েবসাইট", "হোটেল বুকিং ওয়েবসাইট", "ট্রাভেল ও ট্যুর বুকিং ওয়েবসাইট",
+            "টিকেট ও ফ্লাইট বুকিং ওয়েবসাইট", "ভিডিও ও মুভি স্ট্রিমিং ওয়েবসাইট", "সোশ্যাল মিডিয়া ওয়েবসাইট", "কাস্টমার সাপোর্ট ও টিকেটিং সিস্টেম",
+            "Email, SMS, WhatsApp মার্কেটিং সফটওয়্যার", "অন্যান্য কাস্টম ওয়েব অ্যাপ্লিকেশন"
+        ];
+        const webAppsEN = [
+            "Multi-Vendor E-commerce Website", "Single-Vendor E-commerce Website", "Store Management & POS Software", "ERP, HRM, CRM Software",
+            "Accounting Software", "E-Learning Website (LMS)", "School Management Software & Website", "News & Blog Website",
+            "Personal Portfolio Website", "Corporate Company Website", "Construction Company Website", "Consulting Agency Website",
+            "Digital Product Selling Website", "Job Portal Website", "Classified Website", "Business Directory Website",
+            "Doctor Directory & Booking Website", "Car Directory & Booking Website", "Property Buy-Sell-Rental Website", "On-Demand Service Website",
+            "NGO & Donation Platform Website", "Blood Donation Website", "Restaurant Website & Software", "Food Delivery System",
+            "Courier Service Website & Software", "Matrimonial Website", "Hospital Management Software", "Pharmacy Management Software",
+            "Project Management Software", "Event Management & Booking Website", "Hotel Booking Website", "Travel & Tour Booking Website",
+            "Ticket & Flight Booking Website", "Video & Movie Streaming Website", "Social Media Website", "Customer Support & Ticketing System",
+            "Email, SMS, WhatsApp Marketing Software", "Other Custom Web Applications"
+        ];
+        const androidAppsBN = [
+            "মাল্টি-ভেন্ডার ই-কমার্স অ্যান্ড্রয়েড অ্যাপ", "সিঙ্গেল-ভেন্ডার ই-কমার্স অ্যান্ড্রয়েড অ্যাপ", "মোবাইল পজ (POS) ও ইনভেন্টরি অ্যাপ", "বিজনেস ERP ও CRM মোবাইল অ্যাপ",
+            "পার্সোনাল ও বিজনেস একাউন্টিং অ্যাপ", "ই-লার্নিং ও অনলাইন কোর্স অ্যাপ", "স্কুল/কলেজ ম্যানেজমেন্ট অ্যাপ", "নিউজ ও ম্যাগাজিন অ্যান্ড্রয়েড অ্যাপ",
+            "ডিজিটাল সিভি ও পোর্টফোলিও অ্যাপ", "কোম্পানি প্রোফাইল ও ইনফো অ্যাপ", "কনস্ট্রাকশন সাইট মনিটরিং অ্যাপ", "কনসাল্টিং ও সাপোর্ট সার্ভিস অ্যাপ",
+            "ডিজিটাল ডাউনলোড সেলিং অ্যাপ", "জব সার্চ ও এমপ্লয়মেন্ট অ্যাপ", "বাই-সেল ও ক্লাসিফাইড লিস্টিং অ্যাপ", "লোকাল বিজনেস ডাইরেক্টরি অ্যাপ",
+            "ডক্টর অ্যাপয়েন্টমেন্ট ও হেলথ অ্যাপ", "কার রেন্টাল ও ড্রাইভার বুকিং অ্যাপ", "রিয়েল এস্টেট ও প্রোপার্টি অ্যাপ", "হোম সার্ভিস ও অন-ডিমান্ড সার্ভিস অ্যাপ",
+            "চ্যারিটি ও ডোনেশন কালেকশন অ্যাপ", "ইমার্জেন্সি ব্লাড ডোনার ফাইন্ডার অ্যাপ", "রেস্টুরেন্ট ওয়েটার ও কিচেন ম্যানেজমেন্ট অ্যাপ", "কাস্টমার ফুড ডেলিভারি অ্যাপ",
+            "পার্সেল ট্র্যাকিং ও কুরিয়ার অ্যাপ", "মেট্রিমোনিয়াল ও প্রোফাইল ম্যাচিং অ্যাপ", "হসপিটাল ম্যানেজমেন্ট ও পেশেন্ট অ্যাপ", "ফার্মেসী সেলস ও স্টক ম্যানেজমেন্ট অ্যাপ",
+            "টাস্ক ও প্রোজেক্ট ম্যানেজমেন্ট অ্যাপ", "ইভেন্ট টিকেট বুকিং ও ম্যানেজমেন্ট অ্যাপ", "হোটেল ও রিসোর্ট রিজার্ভেশন অ্যাপ", "ট্যুরিস্ট গাইড ও ট্রাভেল প্ল্যানার অ্যাপ",
+            "বাস, ট্রেন ও ফ্লাইট টিকেট বুকিং অ্যাপ", "ভিডিও স্ট্রিমিং ও ওটিটি (OTT) অ্যাপ", "চ্যাটিং ও সোশ্যাল নেটওয়ার্কিং অ্যাপ", "কাস্টমার হেল্পডেস্ক ও সাপোর্ট অ্যাপ",
+            "মার্কেটিং অটোমেশন ও মেসেজিং অ্যাপ", "অন্যান্য কাস্টম অ্যান্ড্রয়েড অ্যাপ্লিকেশন"
+        ];
+        const androidAppsEN = [
+            "Multi-Vendor E-commerce Android App", "Single-Vendor E-commerce Android App", "Mobile POS & Inventory App", "Business ERP & CRM Mobile App",
+            "Personal & Business Accounting App", "E-Learning & Online Course App", "School/College Management App", "News & Magazine Android App",
+            "Digital CV & Portfolio App", "Company Profile & Info App", "Construction Site Monitoring App", "Consulting & Support Service App",
+            "Digital Download Selling App", "Job Search & Employment App", "Buy-Sell & Classified Listing App", "Local Business Directory App",
+            "Doctor Appointment & Health App", "Car Rental & Driver Booking App", "Real Estate & Property App", "Home Service & On-Demand App",
+            "Charity & Donation Collection App", "Emergency Blood Donor Finder App", "Restaurant Waiter & Kitchen Management App", "Customer Food Delivery App",
+            "Parcel Tracking & Courier App", "Matrimonial & Profile Matching App", "Hospital Management & Patient App", "Pharmacy Sales & Stock App",
+            "Task & Project Management App", "Event Ticket Booking & Management App", "Hotel & Resort Reservation App", "Tourist Guide & Travel Planner App",
+            "Bus, Train & Flight Ticket Booking App", "Video Streaming & OTT App", "Chatting & Social Networking App", "Customer Helpdesk & Support App",
+            "Marketing Automation & Messaging App", "Other Custom Android Applications"
+        ];
+
+        // ---------- STATIC UI TRANSLATIONS ----------
+        const translations = {
+            bn: {
+                landingTitle: "স্পাইডার কাস্টম অ্যাপ্লিকেশন",
+                landingSub: "◈ 38+ ওয়েব ও 38+ অ্যান্ড্রয়েড অ্যাপ ◈",
+                landingDesc: "সম্পূর্ণ ওয়েব & অ্যান্ড্রয়েড সমাধান\nবিস্তারিত ফিচার ও ডেমো সহ প্রতিটি অ্যাপ",
+                enterBtn: "🚀 ড্যাশবোর্ডে প্রবেশ",
+                dashTitle: "স্পাইডার কাস্টম অ্যাপ্লিকেশন সুপারশপ",
+                dashBadge: "⚡ 38 টি ওয়েব অ্যাপ | 38 টি অ্যান্ড্রয়েড অ্যাপ ⚡",
+                webCardTitle: "ওয়েব অ্যাপ্লিকেশন",
+                androidCardTitle: "অ্যান্ড্রয়েড অ্যাপ্লিকেশন",
+                footer: "🕸️ স্পাইডার কোর · কাস্টম ডেভেলপমেন্ট · ১ বছর ফ্রি সাপোর্ট<br>📞 +8801618366393 | WhatsApp: wa.me/8801618366393",
+                langLabel: "ভাষা",
+                themeLabel: "থিম",
+                modalClose: "বন্ধ করুন",
+                demoMsg: "হ্যালো স্পাইডার টিম, আমি \"{appName}\" এর লাইভ ডেমো এবং বিস্তারিত জানতে চাই। অনুগ্রহ করে ডেমো লিংক বা স্ক্রিনশেয়ার সুবিধা দিন। ধন্যবাদ।"
+            },
+            en: {
+                landingTitle: "SPIDER CUSTOM APPLICATION SERVICE",
+                landingSub: "◈ 38+ Web & 38+ Android Apps ◈",
+                landingDesc: "Complete Web & Android Solutions\nEach app with detailed features & Demo request",
+                enterBtn: "🚀 ENTER DASHBOARD",
+                dashTitle: "SPIDER CUSTOM APPLICATION SHOP",
+                dashBadge: "⚡ 38 Web Apps | 38 Android Apps ⚡",
+                webCardTitle: "Web Applications",
+                androidCardTitle: "Android Applications",
+                footer: "🕸️ Spider Core · Full Custom Development · 1 Year Free Support<br>📞 +8801618366393 | WhatsApp: wa.me/8801618366393",
+                langLabel: "Language",
+                themeLabel: "Theme",
+                modalClose: "Close",
+                demoMsg: "Hello Spider Team, I would like to see a live demo and detailed features of \"{appName}\". Please share the demo link or screen share. Thanks."
+            }
+        };
+
+        let currentLang = 'bn';
+        let currentTheme = 'dark';
+
+        // ---------- FEATURE GENERATOR (Multilingual) ----------
+        function getFeatures(appName, type, lang) {
+            const lower = appName.toLowerCase();
+            let features = [];
+            const getText = (bnText, enText) => lang === 'bn' ? bnText : enText;
+            if (lower.includes("ই-কমার্স") || lower.includes("e-commerce") || lower.includes("মাল্টি-ভেন্ডার") || lower.includes("সিঙ্গেল-ভেন্ডার")) {
+                features = [
+                    getText("পণ্য ও ইনভেন্টরি ব্যবস্থাপনা", "Product & Inventory Management"),
+                    getText("অনলাইন পেমেন্ট (বিকাশ, নগদ, কার্ড)", "Online Payment (bKash, Nagad, Cards)"),
+                    getText("অর্ডার ট্র্যাকিং ও রিপোর্ট", "Order Tracking & Reports"),
+                    getText("রিভিউ ও রেটিং সিস্টেম", "Review & Rating System"),
+                    getText("প্রোমো কোড ও কুপন", "Promo Codes & Coupons")
+                ];
+            } else if (lower.includes("ইআরপি") || lower.includes("হ্রম") || lower.includes("সিআরএম") || lower.includes("erp") || lower.includes("hrm") || lower.includes("crm")) {
+                features = [
+                    getText("কর্মচারী ও বেতন ব্যবস্থাপনা", "Employee & Payroll Management"),
+                    getText("লিড ট্র্যাকিং ও সেলস ফানেল", "Lead Tracking & Sales Funnel"),
+                    getText("ইনভেন্টরি ও অ্যাকাউন্টিং", "Inventory & Accounting"),
+                    getText("অ্যাডভান্সড রিপোর্টিং", "Advanced Reporting")
+                ];
+            } else if (lower.includes("এলএমএস") || lower.includes("ই-লার্নিং") || lower.includes("lms") || lower.includes("লার্নিং")) {
+                features = [
+                    getText("ভিডিও কোর্স ও কুইজ", "Video Courses & Quizzes"),
+                    getText("সার্টিফিকেট জেনারেশন", "Certificate Generation"),
+                    getText("প্রগ্রেস ট্র্যাকিং", "Progress Tracking"),
+                    getText("লাইভ ক্লাস সাপোর্ট", "Live Class Support")
+                ];
+            } else if (lower.includes("স্কুল") || lower.includes("বিদ্যালয়") || lower.includes("কলেজ") || lower.includes("school")) {
+                features = [
+                    getText("শিক্ষার্থী ও উপস্থিতি ব্যবস্থাপনা", "Student & Attendance Management"),
+                    getText("ফলাফল ও ট্রান্সক্রিপ্ট", "Results & Transcripts"),
+                    getText("অনলাইন ফি সংগ্রহ", "Online Fee Collection"),
+                    getText("প্যারেন্ট পোর্টাল ও নোটিফিকেশন", "Parent Portal & Notifications")
+                ];
+            } else if (lower.includes("হাসপাতাল") || lower.includes("ডক্টর") || lower.includes("hospital") || lower.includes("doctor")) {
+                features = [
+                    getText("অ্যাপয়েন্টমেন্ট বুকিং", "Appointment Booking"),
+                    getText("পেশেন্ট হিস্টরি ও প্রেসক্রিপশন", "Patient History & Prescriptions"),
+                    getText("বিলিং ও ইনভয়েস", "Billing & Invoicing"),
+                    getText("রিপোর্ট ম্যানেজমেন্ট", "Report Management")
+                ];
+            } else if (lower.includes("রেস্টুরেন্ট") || lower.includes("ফুড ডেলিভারি") || lower.includes("restaurant") || lower.includes("food")) {
+                features = [
+                    getText("অনলাইন অর্ডার ও মেনু", "Online Order & Menu"),
+                    getText("রিয়েল-টাইম অর্ডার ট্র্যাকিং", "Real-time Order Tracking"),
+                    getText("ডেলিভারি এজেন্ট অ্যাসাইন", "Delivery Assignment"),
+                    getText("পেমেন্ট ও রিভিউ", "Payment & Reviews")
+                ];
+            } else {
+                features = [
+                    getText("ডায়নামিক ড্যাশবোর্ড", "Dynamic Dashboard"),
+                    getText("ব্যবহারকারী ভিত্তিক অ্যাক্সেস কন্ট্রোল", "Role-based Access Control"),
+                    getText("এপিআই ইন্টিগ্রেশন রেডি", "API Integration Ready"),
+                    getText("মোবাইল রেস্পন্সিভ", "Mobile Responsive"),
+                    getText("২৪/৭ সাপোর্ট ও ডকুমেন্টেশন", "24/7 Support & Documentation")
+                ];
+            }
+            return features.slice(0, 6);
+        }
+
+        // ---------- RENDER APP LISTS ----------
+        function renderAppLists() {
+            const webContainer = document.getElementById('webAppsContainer');
+            const androidContainer = document.getElementById('androidAppsContainer');
+            const webArray = currentLang === 'bn' ? webAppsBN : webAppsEN;
+            const androidArray = currentLang === 'bn' ? androidAppsBN : androidAppsEN;
+            webContainer.innerHTML = '';
+            androidContainer.innerHTML = '';
+            webArray.forEach(app => webContainer.appendChild(createAppItem(app, 'web')));
+            androidArray.forEach(app => androidContainer.appendChild(createAppItem(app, 'android')));
+        }
+
+        function createAppItem(appName, type) {
+            const div = document.createElement('div');
+            div.className = 'app-item';
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'app-name';
+            nameSpan.innerText = appName;
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'action-buttons';
+            const detailsBtn = document.createElement('button');
+            detailsBtn.className = 'icon-btn';
+            detailsBtn.innerHTML = '<i class="fas fa-info-circle"></i>';
+            detailsBtn.title = currentLang === 'bn' ? 'বিস্তারিত ফিচার' : 'Details & Features';
+            detailsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showDetailsModal(appName, type);
+            });
+            const demoBtn = document.createElement('button');
+            demoBtn.className = 'icon-btn';
+            demoBtn.innerHTML = '<i class="fas fa-external-link-alt"></i>';
+            demoBtn.title = currentLang === 'bn' ? 'ডেমো লিংক চাইতে হোয়াটসঅ্যাপ' : 'Request Demo via WhatsApp';
+            demoBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                requestDemo(appName);
+            });
+            btnGroup.appendChild(detailsBtn);
+            btnGroup.appendChild(demoBtn);
+            div.appendChild(nameSpan);
+            div.appendChild(btnGroup);
+            return div;
+        }
+
+        function showDetailsModal(appName, type) {
+            const features = getFeatures(appName, type, currentLang);
+            const modal = document.getElementById('featureModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalFeatures = document.getElementById('modalFeatures');
+            modalTitle.innerText = currentLang === 'bn' ? `📱 ${appName} - ব্যবহারিক ফিচার` : `📱 ${appName} - Key Features`;
+            modalFeatures.innerHTML = '';
+            features.forEach(f => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check-circle"></i> <span>${f}</span>`;
+                modalFeatures.appendChild(li);
+            });
+            modal.classList.add('active');
+        }
+
+        function requestDemo(appName) {
+            const msgTemplate = translations[currentLang].demoMsg;
+            const message = msgTemplate.replace('{appName}', appName);
+            const phone = "8801618366393";
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // ---------- UPDATE STATIC UI TEXT (Landing, Dashboard, Settings) ----------
+        function updateStaticUI() {
+            const t = translations[currentLang];
+            document.getElementById('landingTitle').innerText = t.landingTitle;
+            document.getElementById('landingSub').innerText = t.landingSub;
+            document.getElementById('landingDesc').innerText = t.landingDesc;
+            document.getElementById('enterBtn').innerHTML = t.enterBtn;
+            document.getElementById('dashTitle').innerText = t.dashTitle;
+            document.getElementById('dashBadge').innerText = t.dashBadge;
+            document.getElementById('webCardTitle').innerHTML = `<i class="fas fa-globe"></i> ${t.webCardTitle}`;
+            document.getElementById('androidCardTitle').innerHTML = `<i class="fab fa-android"></i> ${t.androidCardTitle}`;
+            document.getElementById('footerText').innerHTML = t.footer;
+            document.getElementById('langLabel').innerText = t.langLabel;
+            document.getElementById('themeLabel').innerText = t.themeLabel;
+            document.getElementById('closeModalBtn').innerText = t.modalClose;
+            document.querySelector('.close-settings').innerHTML = `✖ ${t.modalClose}`;
+        }
+
+        // ---------- THEME HANDLING ----------
+        function setTheme(theme) {
+            currentTheme = theme;
+            if (theme === 'light') document.body.classList.add('light-theme');
+            else document.body.classList.remove('light-theme');
+            localStorage.setItem('spider_theme', theme);
+            document.querySelectorAll('[data-theme]').forEach(el => {
+                if (el.getAttribute('data-theme') === theme) el.classList.add('active');
+                else el.classList.remove('active');
+            });
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('spider_theme');
+            setTheme(saved === 'light' ? 'light' : 'dark');
+        }
+
+        // ---------- LANGUAGE HANDLING ----------
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('spider_lang', lang);
+            updateStaticUI();
+            renderAppLists();
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) el.classList.add('active');
+                else el.classList.remove('active');
+            });
+        }
+
+        function loadLanguage() {
+            const saved = localStorage.getItem('spider_lang');
+            setLanguage(saved === 'en' ? 'en' : 'bn');
+        }
+
+        // ---------- SETTINGS PANEL & MODAL ----------
+        function initSettings() {
+            const settingsPanel = document.getElementById('settingsPanel');
+            const settingsBtn = document.getElementById('settingsFloatBtn');
+            const closeSettings = document.getElementById('closeSettingsBtn');
+            function toggleSettings(e) { e.stopPropagation(); settingsPanel.classList.toggle('open'); }
+            settingsBtn.addEventListener('click', toggleSettings);
+            closeSettings.addEventListener('click', () => settingsPanel.classList.remove('open'));
+            document.addEventListener('click', (e) => {
+                if (!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)) settingsPanel.classList.remove('open');
+            });
+            document.querySelectorAll('[data-lang]').forEach(btn => {
+                btn.addEventListener('click', (e) => setLanguage(btn.getAttribute('data-lang')));
+            });
+            document.querySelectorAll('[data-theme]').forEach(btn => {
+                btn.addEventListener('click', (e) => setTheme(btn.getAttribute('data-theme')));
+            });
+        }
+
+        // ---------- LANDING & DASHBOARD SWITCH ----------
+        function enterPortal() {
+            document.getElementById('landingScreen').classList.add('hidden');
+            document.getElementById('dashboardScreen').classList.remove('hidden');
+            renderAppLists();
+            updateStaticUI();
+        }
+
+        // ---------- PARTICLES ----------
+        function generateParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 45; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                const size = Math.random() * 60 + 15;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.animationDuration = 14 + Math.random() * 22 + 's';
+                p.style.animationDelay = Math.random() * 12 + 's';
+                container.appendChild(p);
+            }
+        }
+
+        // ---------- WHATSAPP FLOATING BUTTON ----------
+        function setupWhatsApp() {
+            const waBtn = document.getElementById('whatsappFloatBtn');
+            waBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const msg = currentLang === 'bn' ? "স্পাইডার কাস্টম অ্যাপ্লিকেশন সম্পর্কে বিস্তারিত ও ডেমো জানতে চাই।" : "I want to know details and demo about Spider Custom Applications.";
+                window.open(`https://wa.me/8801618366393?text=${encodeURIComponent(msg)}`, '_blank');
+            });
+        }
+
+        // ---------- MODAL CLOSE ----------
+        function setupModal() {
+            const modal = document.getElementById('featureModal');
+            const closeBtn = document.getElementById('closeModalBtn');
+            closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+        }
+
+        // ---------- INITIALIZE ----------
+        function init() {
+            generateParticles();
+            loadTheme();
+            loadLanguage();
+            initSettings();
+            setupWhatsApp();
+            setupModal();
+            document.getElementById('enterBtn').addEventListener('click', enterPortal);
+        }
+        init();
+    </script>
+
+<script src="./script.js"></script></body></html>
